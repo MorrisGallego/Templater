@@ -1,0 +1,40 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.0-M5'
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+    id 'java'
+}
+
+group = 'me.vjgallego'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.microsoft.playwright:playwright:1.27.0'
+    implementation 'com.github.jknack:handlebars:4.3.0'
+    implementation 'net.lingala.zip4j:zip4j:2.11.2'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+bootJar {
+    destinationDirectory = file(project.buildDir)
+    archiveFileName = "${project.name}.jar"
+}
+
+
+
+
+
+
+
+
+
