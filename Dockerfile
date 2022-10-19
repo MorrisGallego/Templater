@@ -7,6 +7,7 @@ COPY ./settings.gradle ./settings.gradle
 COPY ./gradle.properties ./gradle.properties
 COPY ./gradlew ./gradlew
 
+RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
 FROM eclipse-temurin:17 as layerExtractor
