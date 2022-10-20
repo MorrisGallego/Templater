@@ -61,7 +61,7 @@ public class GeneratorService {
 
             // Build a map with the default parameters
             var defaultParameters = new HashMap<String, String>();
-            for(var parameter: templates.metadata(template).getVariables())
+            for(var parameter: templates.metadata(template).variables())
                 defaultParameters.put(parameter, "{{"+parameter+"}}");
 
             // Compile the template to a temporal html file
