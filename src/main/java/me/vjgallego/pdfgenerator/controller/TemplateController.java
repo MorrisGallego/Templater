@@ -29,7 +29,7 @@ public class TemplateController {
     }
 
     @GetMapping(
-            value = "{template}/metadata",
+            value = "{template}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Metadata metadata(@PathVariable String template){

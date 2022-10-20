@@ -104,7 +104,7 @@ public class TemplateService {
 
     public Metadata metadata(String template) {
         try {
-            return new Metadata().setVariables(templateEngine.compile(template).collect(TagType.VAR));
+            return new Metadata(template, templateEngine.compile(template).collect(TagType.VAR));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
