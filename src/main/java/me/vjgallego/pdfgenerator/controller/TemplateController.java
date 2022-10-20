@@ -44,7 +44,9 @@ public class TemplateController {
         return generator.preview(template);
     }
 
-    @PostMapping()
+    @PostMapping(
+            consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }
+    )
     public ResponseEntity<?> post(@RequestParam("file") MultipartFile file) {
         try{
             templateEngine.deploy(file);

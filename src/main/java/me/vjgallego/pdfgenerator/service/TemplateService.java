@@ -8,6 +8,7 @@ import me.vjgallego.pdfgenerator.configuration.ApplicationPaths;
 import me.vjgallego.pdfgenerator.model.Metadata;
 import net.lingala.zip4j.ZipFile;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -95,7 +96,7 @@ public class TemplateService {
                 throw new IOException("Template "+template+" not found!");
             }
 
-            Files.delete(Path.of(paths.path(), template));
+            FileSystemUtils.deleteRecursively(Path.of(paths.path(), template));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
