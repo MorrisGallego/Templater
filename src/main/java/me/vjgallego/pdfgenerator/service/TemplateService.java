@@ -111,7 +111,7 @@ public class TemplateService {
     }
 
     public List<String> list() {
-        try(var templates= Files.list(Path.of(paths.path()))) {
+        try(var templates= Files.list(Path.of(paths.path())).filter(path -> path.toFile().isDirectory())) {
             return templates.map(Path::getFileName).map(Path::toString).collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException(e);
