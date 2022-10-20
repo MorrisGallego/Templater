@@ -38,7 +38,7 @@ public class GeneratorService {
                     .setPreferCSSPageSize(true);
 
             // Navigate to temporal html file
-            page.navigate(file.getAbsolutePath());
+            page.navigate(file.toURI().toURL().toString());
 
             // Print tab to PDF
             var pdf = page.pdf(options);
@@ -68,7 +68,7 @@ public class GeneratorService {
             var file = templates.compile(template, defaultParameters);
 
             // Navigate to temporal html file
-            page.navigate(file.getAbsolutePath());
+            page.navigate(file.toURI().toURL().toString());
 
             // Build screenshot options
             var options = new Locator.ScreenshotOptions()
