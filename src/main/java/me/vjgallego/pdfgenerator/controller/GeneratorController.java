@@ -31,7 +31,8 @@ public class GeneratorController {
     }
 
     @PostMapping(
-            value = "{template}"
+            value = "{template}",
+            consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public @ResponseBody ResponseEntity<byte[]> post(
             @PathVariable String template,
@@ -41,7 +42,7 @@ public class GeneratorController {
         try {
             if(parameters.size() == 1){
                 // Build file name pattern
-                var filename = (fileNamePattern != null ? interpreter.compileInline(fileNamePattern).apply(parameters.get(0)) : UUID.randomUUID().toString()) + ".pdf";
+                var filename = (fileNamePattern != null && !fileNamePattern.isBlank() ? interpreter.compileInline(fileNamePattern).apply(parameters.get(0)) : UUID.randomUUID().toString()) + ".pdf";
 
                 // Generate the PDF
                 var file = generator.generate(template, parameters.get(0));
