@@ -12,7 +12,7 @@ RUN ./gradlew bootJar
 
 FROM eclipse-temurin:23 as layerExtractor
 
-COPY --from=jarBuilder build/templater.jar ./templater.jar
+COPY --from=jarBuilder build/libs/templater-1.1.0.jar ./templater.jar
 
 RUN java -Djarmode=layertools -jar templater.jar extract
 
