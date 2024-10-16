@@ -5,6 +5,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.ScreenshotType;
+import com.microsoft.playwright.options.WaitUntilState;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
@@ -37,8 +38,14 @@ public class GeneratorService {
                     .setScale(1.0)
                     .setPreferCSSPageSize(true);
 
+            var navigateOptions = new Page.NavigateOptions()
+                    .setWaitUntil(WaitUntilState.NETWORKIDLE);
+
             // Navigate to temporal html file
-            page.navigate(file.toURI().toURL().toString());
+            page.navigate(
+                    file.toURI().toURL().toString(),
+                    navigateOptions
+            );
 
             // Print tab to PDF
             var pdf = page.pdf(options);

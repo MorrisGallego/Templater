@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17 as jarBuilder
+FROM eclipse-temurin:23 as jarBuilder
 
 COPY ./src ./src
 COPY ./gradle ./gradle
@@ -10,13 +10,13 @@ COPY ./gradlew ./gradlew
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
-FROM eclipse-temurin:17 as layerExtractor
+FROM eclipse-temurin:23 as layerExtractor
 
 COPY --from=jarBuilder build/templater.jar ./templater.jar
 
 RUN java -Djarmode=layertools -jar templater.jar extract
 
-FROM mcr.microsoft.com/playwright/java:v1.27.0-focal
+FROM mcr.microsoft.com/playwright/java:v1.48.1-noble
 
 RUN apt-get -y install locales
 RUN locale-gen en_US.UTF-8

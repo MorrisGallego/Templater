@@ -42,17 +42,19 @@ public class GeneratorController {
         try {
             if(parameters.size() == 1){
                 // Build file name pattern
-                var filename = (fileNamePattern != null && !fileNamePattern.isBlank() ? interpreter.compileInline(fileNamePattern).apply(parameters.get(0)) : UUID.randomUUID().toString()) + ".pdf";
+                var filename = (fileNamePattern != null && !fileNamePattern.isBlank()
+                        ? interpreter.compileInline(fileNamePattern).apply(parameters.getFirst())
+                        : UUID.randomUUID().toString()) + ".pdf";
 
                 // Generate the PDF
-                var file = generator.generate(template, parameters.get(0));
+                var file = generator.generate(template, parameters.getFirst());
 
                 // Generate and return the pdf
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
                         .contentType(MediaType.APPLICATION_PDF)
                         .contentLength(file.length)
-                        .body(generator.generate(template, parameters.get(0)));
+                        .body(file);
             } else {
                 // Generate a PDF for each parameter map
                 var files = parameters.stream()
@@ -62,7 +64,9 @@ public class GeneratorController {
                             var bytes = fileWithMetadata.file;
 
                             try {
-                                var filename = (fileNamePattern != null ? interpreter.compileInline(fileNamePattern).apply(params) : UUID.randomUUID().toString()) + ".pdf";
+                                var filename = (fileNamePattern != null
+                                        ? interpreter.compileInline(fileNamePattern).apply(params)
+                                        : UUID.randomUUID().toString()) + ".pdf";
                                 var file = Files.createFile(Path.of(paths.path(), template, filename)).toFile();
 
                                 try(var writer = new PrintStream(file)) {
