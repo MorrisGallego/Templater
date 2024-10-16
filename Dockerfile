@@ -16,7 +16,7 @@ COPY --from=jarBuilder build/templater.jar ./templater.jar
 
 RUN java -Djarmode=layertools -jar templater.jar extract
 
-FROM mcr.microsoft.com/playwright/java:v1.48.1-noble
+FROM mcr.microsoft.com/playwright/java:v1.47.0-noble
 
 RUN apt-get -y install locales
 RUN locale-gen en_US.UTF-8
